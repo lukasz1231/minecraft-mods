@@ -1,5 +1,6 @@
 SN1
-Błąd: nie można dzielić przez zero!
+-2
+58
 SN5
-5935160
-4
+4060
+2
