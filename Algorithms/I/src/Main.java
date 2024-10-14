@@ -60,6 +60,7 @@ class Alg1 {
             String[] liczby = linia.split(" ");
             this.n=Integer.parseInt(liczby[0]);
             this.k=Integer.parseInt(liczby[1]);
+            br.close();
         } catch (IOException e) {
             e.printStackTrace(); // obsługa błędu
         }
@@ -72,6 +73,7 @@ class Alg1 {
             bw.write("SN5");
             bw.newLine();
             bw.write(SN5(n,k));
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace(); // obsługa błędu
         }
@@ -79,53 +81,114 @@ class Alg1 {
 }
 
 class Alg3 {
-    private int Gmonths;
-    private int[] Sum;
+    private int MAX;
     private int j;
+    private int pocz;
     public Alg3()
     {
-        Gmonths = 0;
+        int max = 0;
         j=0;
+        MAX=0;
         try (BufferedReader br = new BufferedReader(new FileReader("In0103.txt"))) {
             int N = Integer.parseInt(br.readLine());
             int[] liczby = new int[N];
-            Sum = new int[N];
-                for(int i=0;i<N;i++)
+            for(int i=0;i<N;i++)
+            {
+                liczby[i]= Integer.parseInt(br.readLine());
+                if(liczby[i]+max<0)
+                    max=0;
+                else if (liczby[i]+max>=0)
+                    max+=liczby[i];
+                if(max>MAX)
                 {
-                    liczby[i]= Integer.parseInt(br.readLine());
-                    if (Sum[j]+liczby[i] > Sum[j] && Gmonths > 0) {
-                        Sum[j]+=liczby[i];
-                        Gmonths++;
-                    }
-                    else if(Sum[j]+liczby[i] > Sum[j] && Gmonths <= 0)
-                    {
-                        j++;
-                        Sum[j]=liczby[i];
-                    }
-                    else
-                    {
-                        Gmonths = 0; // zrobić tablice dwuwymiarową zeby zapisywac i gmonths i sume
-                    }
+                    MAX = max;
+                    j=i;
                 }
-//            for (int liczba : liczby) {
-//                System.out.println(liczba);
-//            }
-//            System.out.println(liczby[0]+liczby[2]);
-            //sprawdzenie
+            }
+            max=MAX;
+            int i=j;
+            while(max!=0)
+            {
+                max-=liczby[i];
+                pocz=i;
+                i--;
+            }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace(); // obsługa błędu
         }
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("Out0103.txt"))) {
-            bw.write("Zad 3");
-//            bw.newLine();
-//            bw.write(SN1(n,k));  // zapis danych do pliku
-//            bw.newLine();    // dodanie nowej linii
-//            bw.write("SN5");
-//            bw.newLine();
-//            bw.write(SN5(n,k));
+            bw.write("Zad 3 nieoptymalne");
+            bw.newLine();
+            bw.write(String.format("%d %d %d ", pocz  , j  , MAX));  // zapis danych do pliku
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace(); // obsługa błędu
+        }
+    }
+}
+class Alg3opt {
+    private int MAX;
+    private int j;
+    private int pocz;
+    public Alg3opt()
+    {
+        int max = 0;
+        j=0;
+        MAX=0;
+        int p = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader("In0103.txt"))) {
+            int N = Integer.parseInt(br.readLine());
+            int[] liczby = new int[N];
+            for(int i=0;i<N;i++)
+            {
+                liczby[i]= Integer.parseInt(br.readLine());
+                if(liczby[i]+max<0)
+                {
+                    max=0;
+                    p=i+1;
+                }
+                else if (liczby[i]+max>=0)
+                    max+=liczby[i];
+                if(max>MAX)
+                {
+                    MAX = max;
+                    j=i;
+                    pocz=p;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Out0103.txt"))) {
+            bw.write("Zad 3 optymalne");
+            bw.newLine();
+            bw.write(String.format("%d %d %d ", pocz  , j  , MAX));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+class Alg5{
+    public Alg5()
+    {
+
+        try (BufferedReader br = new BufferedReader(new FileReader("In0105.txt"))) {
+            int N = Integer.parseInt(br.readLine());
+
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Out0105.txt"))) {
+            bw.write("Zad 5 nieoptymalne");
+            bw.newLine();
+            //bw.write(String.format("%d %d %d ", pocz  , j  , MAX));
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
@@ -134,6 +197,7 @@ public class Main {
     public static void main(String[] args) {
 
         //new Alg1();
-        new Alg3();
+        //new Alg3();
+        //new Alg3opt();
     }
 }

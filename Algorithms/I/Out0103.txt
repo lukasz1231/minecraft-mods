@@ -1,1 +1,2 @@
-Zad 3
+Zad 3 nieoptymalne
+0 5 2298 
