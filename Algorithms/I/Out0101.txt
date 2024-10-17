@@ -1,6 +1,6 @@
-SN1
--2
-58
+SN1 (nie wykona się poprawnie dla n lub k > 20 ze względu na ograniczony zakres longa)
+Błąd
+41998
 SN5
-4060
-2
+1386247736
+62997
